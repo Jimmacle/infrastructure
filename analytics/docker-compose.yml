@@ -10,8 +10,17 @@ services:
       - proxy
     volumes:
       - grafana-data:/var/lib/grafana
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 3001:9090
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus:/etc/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
 volumes:
   grafana-data:
+  prometheus-data:
 networks:
   proxy:
     name: proxy
