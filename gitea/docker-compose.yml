@@ -3,9 +3,11 @@ services:
   gitea:
     image: gitea/gitea
     environment:
-      - LOCAL_ROOT_URL=http://localhost:3000/
       # https://docs.gitea.io/en-us/config-cheat-sheet/
       - GITEA__server__OFFLINE_MODE=true
+      - GITEA__server__HTTP_PORT=3030
+      - GITEA__server__PROTOCOL=https
+      - GITEA__server__DISABLE_SSH=true
       - GITEA__service__DISABLE_REGISTRATION=true
       - GITEA__service__REQUIRE_SIGNIN_VIEW=true
       - GITEA__service__ENABLE_USER_HEATMAP=false
@@ -17,7 +19,6 @@ services:
     volumes:
       - gitea-data:/data
     ports:
-      - "3000:3000"
-      - "22:22"
+      - "3030:3030"
 volumes:
   gitea-data:
